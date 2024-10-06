@@ -27,8 +27,26 @@ console.log(field);
 
 const container = document.getElementById('container');
 
-container.style.gridTemplateColumns = `repeat(${width}, 1fr)`;
-container.style.gridTemplateRows = `repeat(${height}, 1fr)`;
+container.style.gridTemplateColumns = `repeat(${width}, 30px)`;
+container.style.gridTemplateRows = `repeat(${height}, 30px)`;
+
+const getMineCount = (i, j) => {
+    if (i < 0 || i >= height) {
+        return 0;
+    }
+    if (j < 0 || j >= width) {
+        return 0;
+    }
+    return field[i][j].isMine ? 1 : 0;
+}
+
+for (let i = 0; i < height; i++) {
+    for (let j = 0; j < width; j++) {
+        field[i][j].minesAround = getMineCount(i - 1, j - 1) + getMineCount(i - 1, j) + getMineCount(i - 1, j + 1) +
+          getMineCount(i, j - 1) + getMineCount (i, j + 1) + getMineCount(i + 1, j - 1) + getMineCount(i + 1, j) +
+          getMineCount(i + 1, j + 1);
+    }
+}
 
 for (let i = 0; i < height; i++) {
     for (let j = 0; j < width; j++) {
@@ -36,8 +54,9 @@ for (let i = 0; i < height; i++) {
         cell.classList.add('cell');
         if (field[i][j].isMine) {
             cell.innerHTML = '💣';
+        } else if(field[i][j].minesAround > 0) {
+            cell.innerHTML = field[i][j].minesAround.toString();
         }
         container.appendChild(cell);
     }
 }
-
