@@ -20,6 +20,10 @@
     background-color: #ddd;
 }
 
+.closed_cell {
+    background-color: blue;
+}
+
 .footer {
     display: flex;
     justify-content: space-between;
