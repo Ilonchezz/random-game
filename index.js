@@ -5,9 +5,10 @@ let settings = {
 };
 
 let openedCells = 0;
- 
+let flags = 0;
 let field = [];
 let isFieldLocked = false;
+
 const container = document.getElementById('container');
 const settingsBtn = document.getElementById('settings-btn');
 const closePopupBtn = document.getElementById('close-popup');
@@ -16,8 +17,7 @@ const newGame = document.getElementById('new-game-btn');
 const result = document.getElementById('result-popup');
 const resultText = document.getElementById('result-popup-text');
 const resultBtn = document.getElementById('result-popup-btn');
-
-
+const mineAmount = document.getElementById('mines-counter');
 
 newGame.addEventListener('click', () => {
     initialize();
@@ -67,6 +67,7 @@ document.getElementById('save-settings').addEventListener('click', () => {
 });
 
 const initialize = () => {
+    flags = 0;
     openedCells = 0;
     field = [];
     isFieldLocked = false;
@@ -168,6 +169,7 @@ const handleClick = (i, j) => {
 
 
 const draw = () => {
+    mineAmount.innerHTML = (settings.mines - flags).toString();
     container.innerHTML = '';
     for (let i = 0; i < settings.height; i++) {
         for (let j = 0; j < settings.width; j++) {
@@ -196,6 +198,11 @@ const draw = () => {
                 e.preventDefault();
                 if (isFieldLocked) {
                     return;
+                }
+                if (field[i][j].isFlagged) {
+                    flags--;
+                } else {
+                    flags++;
                 }
                 field[i][j].isFlagged = !field[i][j].isFlagged;
                 draw();
