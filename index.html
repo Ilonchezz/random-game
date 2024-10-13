@@ -7,16 +7,42 @@
     <link rel="stylesheet" href="style.css"> 
 </head>
 <body>
+    <header class="header">
+        <div class="mines-count">
+            Мины: <span id="mines-counter">10</span>
+        </div>
+        <div class="timer">
+            Время: <span id="timer">00:00</span>
+        </div>
+        <div class="controls">
+            <button id="new-game-btn">Новая игра</button>
+            <button id="settings-btn">Настройки</button>
+        </div>
+    </header>
+
     <div id="container"></div>
+
+    <div id="settings-popup" class="popup hidden">
+        <div class="popup-content">
+            <h2>Game Settings</h2>
+            <label for="mine-count">Number of Mines:</label>
+            <input type="number" id="mine-count" min="10" max="99" value="10">
+            <br>
+            <button id="save-settings">Save</button>
+            <button id="close-popup">Close</button>
+        </div>
+    </div>
+
     <footer class="footer">
         <a class="github" href="https://github.com/Ilonchezz" target="_blank">
-            <img src="./assets/github-mark.svg" alt="github">
+            <img class="github-img" src="./assets/github-mark.svg" alt="github">
         </a>
         <p class="year">2024</p>
         <a href="https://rs.school/courses/javascript-preschool-ru" target="_blank">
-            <img src="./assets/rss.svg" alt="rs school">
+            <img class="school-img" src="./assets/251fbcf3.png" alt="rs school">
         </a>
     </footer>
+
     <script src="index.js"></script> 
 </body>
 </html>

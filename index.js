@@ -97,6 +97,7 @@ const draw = () => {
                 }
             } else if (field[i][j].isFlagged) {
                 cell.innerHTML = '🚩';
+                cell.classList.add('closed_cell')
             } else {
                 cell.classList.add('closed_cell');
             }
