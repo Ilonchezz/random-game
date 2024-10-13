@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minesweeper</title>
+    <link rel="stylesheet" href="style.css"> 
+</head>
+<body>
+    <header class="header">
+        <div class="mines-count">
+            Mines: <span id="mines-counter">10</span>
+        </div>
+        <div class="controls">
+            <button id="new-game-btn">New game</button>
+            <button id="settings-btn">Settings</button>
+        </div>
+    </header>
+    <div class="main">
+        <div class="results" id="history-table"></div>
+        <div id="container"></div>
+    </div>
+    
+
+    <div id="settings-popup" class="popup hidden">
+        <div class="popup-content">
+            <h2>Game Settings</h2>
+            <form id="settings-form">
+                <label>
+                    <input type="radio" name="difficulty" value="beginner" checked>
+                    Beginner (8x8, 10 mines)
+                </label><br>
+                <label>
+                    <input type="radio" name="difficulty" value="intermediate">
+                    Intermediate (16x16, 40 mines)
+                </label><br>
+                <label>
+                    <input type="radio" name="difficulty" value="expert">
+                    Expert (30x16, 99 mines)
+                </label><br>
+                <button type="button" id="save-settings">Save</button>
+                <button type="button" id="close-popup">Close</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="result-popup" class="result popup hidden">
+        <h2 id="result-popup-text"></h2>
+        <button type="button" id="result-popup-btn">OK</button>
+    </div>
+
+    <footer class="footer">
+        <a class="github" href="https://github.com/Ilonchezz" target="_blank">
+            <img class="github-img" src="./assets/github-mark.svg" alt="github">
+        </a>
+        <p class="year">2024</p>
+        <a href="https://rs.school/courses/javascript-preschool-ru" target="_blank">
+            <img class="school-img" src="./assets/251fbcf3.png" alt="rs school">
+        </a>
+    </footer>
+
+    <script src="index.js"></script> 
+</body>
+</html>
