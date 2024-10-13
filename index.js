@@ -18,6 +18,9 @@ const result = document.getElementById('result-popup');
 const resultText = document.getElementById('result-popup-text');
 const resultBtn = document.getElementById('result-popup-btn');
 const mineAmount = document.getElementById('mines-counter');
+const history = JSON.parse(localStorage.getItem('history')) || [];
+const historyTable = document.getElementById('history-table');
+console.log(history);
 
 newGame.addEventListener('click', () => {
     initialize();
@@ -37,6 +40,21 @@ resultBtn.addEventListener('click', () => {
     initialize();
     draw();
 });
+
+const storeHistory = (result) => {
+
+    const formattedDate = Date.now().toString();
+    history.push(`${result} at ${formattedDate}`);
+    if (history.length > 10) {
+        history.shift();
+    }
+    localStorage.setItem('history', JSON.stringify(history));
+    updateHistoryTable();
+};
+
+const updateHistoryTable = () => {
+    historyTable.innerHTML = history.join('</br>');
+}
 
 document.getElementById('save-settings').addEventListener('click', () => {
     const selectedDifficulty = document.querySelector('input[name="difficulty"]:checked').value;
@@ -145,12 +163,14 @@ const handleClick = (i, j) => {
         }
         resultText.innerHTML = '😵Looser!😵';
         result.classList.remove('hidden');
+        storeHistory('Lose');
         return;
     }
 
     if (openedCells === settings.height * settings.width - settings.mines) {
         resultText.innerHTML = '🎉Winner!🎉';
         result.classList.remove('hidden');
+        storeHistory('Win');
     }
 
     if (field[i][j].minesAround === 0) {
@@ -213,5 +233,6 @@ const draw = () => {
 };
 initialize();
 draw();
+updateHistoryTable();
 
    

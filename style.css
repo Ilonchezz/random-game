@@ -18,6 +18,16 @@ body {
     flex: 1;
 }
 
+.main   {
+    display: flex;
+}
+
+.results {
+    border: 2px solid rgb(0, 225, 255);
+    margin: 20px;
+    padding: 20px;
+}
+
 .header {
     display: flex;
     justify-content: space-between;
