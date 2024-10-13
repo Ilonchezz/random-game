@@ -3,6 +3,8 @@ let settings = {
   width: 8,
   mines: 10
 };
+
+let openedCells = 0;
  
 let field = [];
 let isFieldLocked = false;
@@ -11,6 +13,11 @@ const settingsBtn = document.getElementById('settings-btn');
 const closePopupBtn = document.getElementById('close-popup');
 const settingsPopup = document.getElementById('settings-popup');
 const newGame = document.getElementById('new-game-btn');
+const result = document.getElementById('result-popup');
+const resultText = document.getElementById('result-popup-text');
+const resultBtn = document.getElementById('result-popup-btn');
+
+
 
 newGame.addEventListener('click', () => {
     initialize();
@@ -23,6 +30,12 @@ settingsBtn.addEventListener('click', () => {
 
 closePopupBtn.addEventListener('click', () => {
     settingsPopup.classList.add('hidden');
+});
+
+resultBtn.addEventListener('click', () => {
+    result.classList.add('hidden');
+    initialize();
+    draw();
 });
 
 document.getElementById('save-settings').addEventListener('click', () => {
@@ -54,6 +67,7 @@ document.getElementById('save-settings').addEventListener('click', () => {
 });
 
 const initialize = () => {
+    openedCells = 0;
     field = [];
     isFieldLocked = false;
     for (let i = 0; i < settings.height; i++) {
@@ -118,6 +132,7 @@ const handleClick = (i, j) => {
     }
 
     field[i][j].isOpened = true;
+    openedCells++;
     if (field[i][j].isMine) {
         isFieldLocked = true;
         for (let a = 0; a < settings.height; a++) {
@@ -127,7 +142,14 @@ const handleClick = (i, j) => {
                 }
             }
         }
+        resultText.innerHTML = '😵Looser!😵';
+        result.classList.remove('hidden');
         return;
+    }
+
+    if (openedCells === settings.height * settings.width - settings.mines) {
+        resultText.innerHTML = '🎉Winner!🎉';
+        result.classList.remove('hidden');
     }
 
     if (field[i][j].minesAround === 0) {
